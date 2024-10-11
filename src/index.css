@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.swiper-button-disabled {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.swiper-button-disabled svg {
+  fill: rgba(255, 255, 255, 0.6);
+}
+
+.swiper-days .swiper-button-disabled svg {
+  fill: rgba(0, 0, 0, 0.25);
+}
