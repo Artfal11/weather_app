@@ -12,7 +12,7 @@ import {
 } from '../utils/utils'
 
 import { blob, blobs, wind_icon, wind_image } from '../constants/constants'
-import { FC, useState } from 'react'
+import { useState } from 'react'
 
 import { Line, Pie } from 'react-chartjs-2'
 import Chart from 'chart.js/auto'
@@ -23,11 +23,7 @@ import PlaceName from './PlaceName'
 Chart.register(CategoryScale)
 Chart.register(annotationPlugin)
 
-interface MonthlyWeatherStateProps {
-  className: string
-}
-
-const MonthlyWeatherState: FC<MonthlyWeatherStateProps> = ({ className }) => {
+const MonthlyWeatherState = () => {
   const { searchValue } = useAppSelector((state) => state.searchReducer)
   const { data: LocationWeatherStates } =
     weatherStateAPI.useFetchForecastWeatherStatesQuery(
@@ -233,9 +229,7 @@ const MonthlyWeatherState: FC<MonthlyWeatherStateProps> = ({ className }) => {
       {isLoading && <h1 className="container mx-auto">Загрузка...</h1>}
       {isError && <h1 className="container mx-auto">Произошла ошибка</h1>}
       {!isLoading && !isError && DataRangeWeatherStates && (
-        <div
-          className={`container mx-auto bg-white mt-[16px] rounded-[8px] md:rounded-0 py-[12px] px-[12px] lg:px-[24px] ${className}`}
-        >
+        <div className="container mx-auto bg-white mt-[16px] rounded-[8px] md:rounded-0 py-[12px] px-[12px] lg:px-[24px]">
           <div className="mb-[16px] hidden md:block">
             <PlaceName isLarge={true} newText={': Погода на месяц'} />
             <span

@@ -40,7 +40,9 @@ const Home = () => {
           <DailyWeatherStates />
           <DailyWeatherStatesList />
 
-          <MonthlyWeatherState className="block md:hidden" />
+          <div className="block md:hidden">
+            <MonthlyWeatherState />
+          </div>
         </div>
       )}
     </div>

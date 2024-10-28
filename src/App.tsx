@@ -30,6 +30,7 @@ const App = () => {
         )
       },
       (error) => {
+        console.log(error)
         dispatch(makeVisible())
         placeName && dispatch(change(placeName.location.value))
       }
@@ -37,7 +38,7 @@ const App = () => {
   }, [placeName])
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/weather_app">
       <div
         className={`${
           popupVisible ? 'overflow-hidden h-[100vh] w-[100vw] ' : ''

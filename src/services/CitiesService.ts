@@ -14,7 +14,7 @@ interface Location {
 export const citiesAPI = createApi({
   reducerPath: 'citiesAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://suggestions.dadata.ru/suggestions/api/4_1/rs',
+    baseUrl: 'https://suggestions.dadata.ru/suggestions/api/4_1/rs',
   }),
   endpoints: (build) => ({
     fetchSuggestions: build.query<Suggestions, string>({
