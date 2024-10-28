@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import SearchInput from './SearchInput'
 
 const Header = () => {
+  const { pathname } = useLocation()
   return (
     <div className="bg-white">
       <div className="container mx-auto flex h-[60px] items-center justify-between">
@@ -25,8 +26,23 @@ const Header = () => {
           </svg>
           Погода
         </Link>
-        <div className="flex space-x-6">
-          <Link to="/month">Прогноз на месяц</Link>
+        <div className="hidden md:flex space-x-6 text-[16px]">
+          <Link
+            to="/"
+            className={`${
+              pathname == '/' ? 'text-[#d00] ' : ''
+            }hover:text-[#d00] transition-colors}`}
+          >
+            Прогноз на 2 недели
+          </Link>
+          <Link
+            to="/month"
+            className={`${
+              pathname == '/month' ? 'text-[#d00] ' : ''
+            }hover:text-[#d00] transition-colors`}
+          >
+            Прогноз на месяц
+          </Link>
         </div>
 
         <SearchInput />

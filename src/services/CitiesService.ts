@@ -1,28 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { Suggestion } from '../models/Suggestion'
+import { Geolocation } from '../models/Geolocation'
+import { IPAdress } from '../models/IPAdress'
 
-interface Suggestions {
-  suggestions: [
-    suggestion: {
-      value: string
-      data: {
-        geo_lat: number
-        geo_lon: number
-        city_with_type: string
-        region_with_type: string
-        settlement_with_type: string
-        area_with_type: string
-        area: string
-        region: string
-        city: string
-        settlement: string
-      }
-    }
-  ]
+export interface Suggestions {
+  suggestions: Suggestion[]
 }
 
-interface Geolocation {
-  latitude: number
-  longitude: number
+interface Location {
+  location: Suggestion
 }
 
 export const citiesAPI = createApi({
@@ -60,6 +46,18 @@ export const citiesAPI = createApi({
           Authorization: 'Token 4c104e0c133c5b70926c0e1d1dbc994834261f55',
         },
         body: JSON.stringify({ lat: latitude, lon: longitude }),
+      }),
+    }),
+    fetchGeolocationByIp: build.query<Location, IPAdress>({
+      query: ({ ip }) => ({
+        url: '/iplocate/address?ip=' + ip,
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: 'Token 4c104e0c133c5b70926c0e1d1dbc994834261f55',
+        },
       }),
     }),
   }),

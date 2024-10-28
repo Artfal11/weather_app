@@ -95,3 +95,15 @@ export const TimeOfDay = (str: string) => {
     return 'Ночью'
   }
 }
+
+export const arrayAverage = (nums: number[]) => {
+  return nums.reduce((a, b) => a + b) / nums.length
+}
+
+export const windSpeed = (num: number) => {
+  return (num / 3.6).toFixed(1)
+}
+
+export const arraySum = (nums: number[]) => {
+  return nums.reduce((a, b) => a + b)
+}

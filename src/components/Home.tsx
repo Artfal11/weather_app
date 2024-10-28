@@ -5,6 +5,7 @@ import SunCard from './SunCard'
 import { useAppSelector } from '../hooks/redux'
 import { weatherStateAPI } from '../services/WeatherStateService'
 import DailyWeatherStatesList from './DailyWeatherStatesList'
+import MonthlyWeatherState from './MonthlyWeatherState'
 
 const Home = () => {
   const { searchValue } = useAppSelector((state) => state.searchReducer)
@@ -22,12 +23,12 @@ const Home = () => {
   )
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto py-[16px]">
       {isLoading && <h1>Загрузка...</h1>}
       {isError && <h1>Произошла ошибка при загрузке</h1>}
       {LocationWeatherStates && !isLoading && !isError && (
         <div>
-          <div className="flex my-[16px] justify-between">
+          <div className="flex mb-[16px] justify-between">
             <CurrentWeatherState />
             <SunCard
               weatherStateDaily={LocationWeatherStates.days[0]}
@@ -38,6 +39,8 @@ const Home = () => {
 
           <DailyWeatherStates />
           <DailyWeatherStatesList />
+
+          <MonthlyWeatherState className="block md:hidden" />
         </div>
       )}
     </div>

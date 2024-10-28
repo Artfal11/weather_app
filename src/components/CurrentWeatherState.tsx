@@ -7,8 +7,9 @@ import {
   leadingZero,
   getCurrentTime,
   numberWithSign,
+  windSpeed,
 } from '../utils/utils'
-import { citiesAPI } from '../services/CitiesService'
+import PlaceName from './PlaceName'
 
 const CurrentWeatherState = () => {
   const { searchValue } = useAppSelector((state) => state.searchReducer)
@@ -17,26 +18,11 @@ const CurrentWeatherState = () => {
       locationName: searchValue,
     })
 
-  let regex =
-    /^-?(180(\.0+)?|1[0-7]\d(\.\d+)?|[1-9]?\d(\.\d+)?)\s*,\s*-?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/
-
-  const {
-    data: placeName,
-    isLoading,
-    isError,
-  } = citiesAPI.useFetchGeolocationQuery(
-    {
-      latitude: Number(searchValue.split(', ')[0]),
-      longitude: Number(searchValue.split(', ')[1]),
-    },
-    { skip: !regex.test(searchValue) }
-  )
-
   return (
-    <div className="w-[45%]">
+    <div className="w-[100%] md:w-[63%] xl:w-[45%]">
       {LocationWeatherStates && (
         <div
-          className="bg-cover p-[24px] text-white rounded-[8px]"
+          className="bg-cover p-[16px] 2xs:p-[24px] text-white rounded-[8px]"
           style={{
             backgroundImage: `url('${
               images.find(
@@ -47,35 +33,14 @@ const CurrentWeatherState = () => {
             }')`,
           }}
         >
-          <h1 className="font-medium text-[16px]">
-            {isLoading && <span>Загрузка...</span>}
-            {isError && <span>Произошла ошибка при загрузке</span>}
-            {placeName &&
-            !isLoading &&
-            !isError &&
-            regex.test(LocationWeatherStates.resolvedAddress)
-              ? (placeName.suggestions[0].data.city &&
-                  placeName.suggestions[0].data.region &&
-                  placeName.suggestions[0].data.city +
-                    ', ' +
-                    placeName.suggestions[0].data.region_with_type) ||
-                (placeName.suggestions[0].data.settlement &&
-                  placeName.suggestions[0].data.region &&
-                  placeName.suggestions[0].data.settlement_with_type +
-                    ', ' +
-                    placeName.suggestions[0].data.region_with_type) ||
-                placeName.suggestions[0].data.region_with_type
-              : LocationWeatherStates.resolvedAddress.split(', ')[0] +
-                ', ' +
-                LocationWeatherStates.resolvedAddress.split(', ')[1]}
-          </h1>
+          <PlaceName isLarge={false} newText={''} />
           <h3 className="opacity-70 text-[16px]">
             Сейчас{' '}
             {leadingZero(getCurrentTime(LocationWeatherStates)?.hour()) +
               ':' +
               leadingZero(getCurrentTime(LocationWeatherStates)?.minute())}
           </h3>
-          <div className="flex items-center mb-[16px]">
+          <div className="flex items-center mb-[10px] 2xs:mb-[16px] flex-wrap">
             <span className="text-[48px] after:content-['\00B0'] mr-[10px]">
               {numberWithSign(LocationWeatherStates.currentConditions.temp)}
             </span>
@@ -105,8 +70,8 @@ const CurrentWeatherState = () => {
             </div>
           </div>
 
-          <div className="flex gap-[50px]">
-            <div className="flex text-[16px] gap-[8px]">
+          <div className="flex gap-[10px] 3xs:gap-[20px] 2xs:gap-[50px] flex-wrap">
+            <div className="flex text-[16px] gap-[8px] mr-[30px] 3xs:mr-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -117,9 +82,7 @@ const CurrentWeatherState = () => {
               >
                 <path d="M12.5 2A2.5 2.5 0 0 0 10 4.5a.5.5 0 0 1-1 0A3.5 3.5 0 1 1 12.5 8H.5a.5.5 0 0 1 0-1h12a2.5 2.5 0 0 0 0-5m-7 1a1 1 0 0 0-1 1 .5.5 0 0 1-1 0 2 2 0 1 1 2 2h-5a.5.5 0 0 1 0-1h5a1 1 0 0 0 0-2M0 9.5A.5.5 0 0 1 .5 9h10.042a3 3 0 1 1-3 3 .5.5 0 0 1 1 0 2 2 0 1 0 2-2H.5a.5.5 0 0 1-.5-.5" />
               </svg>
-              {(
-                LocationWeatherStates?.currentConditions.windspeed / 3.6
-              ).toFixed(1)}{' '}
+              {windSpeed(LocationWeatherStates?.currentConditions.windspeed)}{' '}
               м/c,{' '}
               {windDirection(LocationWeatherStates.currentConditions.winddir)}
             </div>
@@ -154,7 +117,7 @@ const CurrentWeatherState = () => {
               мм.рт.ст
             </div>
           </div>
-          <div className="border-[1px] bg-white opacity-30 my-[36px]"></div>
+          <div className="border-[1px] bg-white opacity-30 my-[16px] 2xs:my-[36px]"></div>
           <SliderForCurrentWeatherState />
         </div>
       )}

@@ -21,18 +21,22 @@ const DayDetail: FC<DayDetailProps> = ({ weatherState }) => {
 
   let date = new Date(weatherState.datetime)
   return (
-    <div className="flex items-center w-[100%] bg-white rounded-[8px] px-[24px] py-[12px]">
-      <table className="w-[69%]">
+    <div className="flex items-center w-[100%] bg-white rounded-[8px] px-[8px] 2xs:px-[24px] py-[8px] 2xs:py-[12px]">
+      <table className="w-[100%] xl:w-[69%]">
         <thead className="border-b-[1px] border-[#e5e5e5]">
           <tr>
-            <th colSpan={3} className="w-[42%]"></th>
+            <th
+              colSpan={2}
+              className="w-[28%] 3xs:w-[38%] xs:w-[28%] md:w-[22%]"
+            ></th>
+            <th colSpan={1}></th>
             <th colSpan={1}></th>
             <th colSpan={1}></th>
             <th colSpan={1}></th>
             <th colSpan={1}></th>
           </tr>
           <tr>
-            <th colSpan={3}>
+            <th colSpan={2}>
               <div
                 className={`flex text-left font-normal${
                   date.getDay() == 0 || date.getDay() == 6
@@ -40,7 +44,7 @@ const DayDetail: FC<DayDetailProps> = ({ weatherState }) => {
                     : ''
                 }`}
               >
-                <h1 className="text-[56px] mr-[32px] leading-[1]">
+                <h1 className="text-[56px] mr-[16px] 2xs:mr-[32px] leading-[1]">
                   {date.getDate()}
                 </h1>
                 <div className="flex flex-col">
@@ -57,13 +61,18 @@ const DayDetail: FC<DayDetailProps> = ({ weatherState }) => {
                 </div>
               </div>
             </th>
-            <th className="text-left text-[#939cb0] font-normal">
+            <th></th>
+            <th className="text-left text-[#939cb0] font-normal hidden sm:table-cell">
               Давление, <br /> мм.рт.ст
             </th>
-            <th className="text-left text-[#939cb0] font-normal">Влажность</th>
-            <th className="text-left text-[#939cb0] font-normal">Ветер, м/c</th>
+            <th className="text-left text-[#939cb0] font-normal hidden xs:table-cell">
+              Влажность
+            </th>
+            <th className="text-left text-[#939cb0] font-normal table-cell">
+              Ветер<span className="hidden 2xs:inline">, м/c</span>
+            </th>
             <th className="text-left text-[#939cb0] font-normal">
-              Ощущается как
+              Ощущается <span className="hidden 2xs:inline">как</span>
             </th>
           </tr>
         </thead>
@@ -83,7 +92,7 @@ const DayDetail: FC<DayDetailProps> = ({ weatherState }) => {
         </tbody>
         <tfoot>
           <tr>
-            <td colSpan={3}>
+            <td colSpan={4}>
               <div className="py-[8px]">
                 {uvIndexToString(weatherState.uvindex)}, {weatherState.uvindex}
               </div>

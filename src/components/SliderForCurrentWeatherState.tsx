@@ -23,11 +23,28 @@ const SliderForCurrentWeatherState = () => {
             modules={[Navigation]}
             spaceBetween={30}
             slidesPerGroupSkip={0}
-            slidesPerGroup={3}
-            slidesPerView={7}
+            slidesPerGroup={2}
             navigation={{
               prevEl: '.prev-hourly',
               nextEl: '.next-hourly',
+            }}
+            breakpoints={{
+              320: {
+                slidesPerView: 4,
+              },
+              420: {
+                slidesPerView: 5,
+              },
+              590: {
+                slidesPerView: 7,
+              },
+              768: {
+                slidesPerView: 5,
+              },
+              1024: {
+                slidesPerView: 7,
+                slidesPerGroup: 3,
+              },
             }}
           >
             {LocationWeatherStates.days.slice(0, 2).map((day) =>

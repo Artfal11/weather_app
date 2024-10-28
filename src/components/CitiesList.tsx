@@ -4,7 +4,7 @@ import CitiesListItem from './CitiesListItem'
 
 const CitiesList = () => {
   return (
-    <div className="bg-white p-[16px] rounded-[8px] w-[23%]">
+    <div className="hidden md:block w-[35%] xl:w-[23%] bg-white p-[16px] rounded-[8px] w-[23%]">
       <h3 className="text-[18px] font-medium">Погода в других городах</h3>
       <ul>
         {cities?.map((city) => (

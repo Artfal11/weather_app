@@ -12,7 +12,7 @@ interface SunCardProps {
 
 const SunCard: FC<SunCardProps> = ({ weatherStateDaily, isVisible }) => {
   return (
-    <div className="bg-white rounded-[8px] w-[25%] m-0 py-[16px]">
+    <div className="hidden xl:block bg-white rounded-[8px] w-[25%] m-0 py-[16px]">
       <div className="mx-auto text-center flex flex-col mb-[16px]">
         <span className="text-[16px]">Световой день</span>
         <span className="text-[18px] font-bold leading-[0.75]">
@@ -78,7 +78,13 @@ const SunCard: FC<SunCardProps> = ({ weatherStateDaily, isVisible }) => {
           <div
             className={`absolute h-[30px] bg-white left-0 top-0 rounded-[50%] z-5`}
             style={{
-              width: `${weatherStateDaily.moonphase * 100}%`,
+              width: `${
+                weatherStateDaily.moonphase <= 0.5
+                  ? weatherStateDaily.moonphase == 0
+                    ? 100
+                    : weatherStateDaily.moonphase * 2 * 100
+                  : (1 - (weatherStateDaily.moonphase - 0.5) * 2) * 100
+              }%`,
             }}
           ></div>
         </div>
@@ -93,7 +99,15 @@ const SunCard: FC<SunCardProps> = ({ weatherStateDaily, isVisible }) => {
             <div
               className={`absolute h-[30px] bg-white left-0 top-0 rounded-[50%] z-5`}
               style={{
-                width: `${weatherStateDaily.moonphase * 100}%`,
+                width: `${
+                  weatherStateDaily.moonphase <= 0.5
+                    ? weatherStateDaily.moonphase == 0
+                      ? 100
+                      : weatherStateDaily.moonphase * 2 * 100
+                    : weatherStateDaily.moonphase == 1
+                    ? 0
+                    : (1 - (weatherStateDaily.moonphase - 0.5) * 2) * 100
+                }%`,
               }}
             ></div>
           </div>

@@ -1,12 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import searchReducer from './reducers/SearchSlice'
+import popupReducer from './reducers/PopupSlice'
 import { weatherStateAPI } from '../services/WeatherStateService'
 import { citiesAPI } from '../services/CitiesService'
+import { ipAPI } from '../services/IpService'
 
 const rootReducer = combineReducers({
+  popupReducer,
   searchReducer,
   [weatherStateAPI.reducerPath]: weatherStateAPI.reducer,
   [citiesAPI.reducerPath]: citiesAPI.reducer,
+  [ipAPI.reducerPath]: ipAPI.reducer,
 })
 
 export const setupStore = () => {
@@ -15,7 +19,8 @@ export const setupStore = () => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()
         .concat(weatherStateAPI.middleware)
-        .concat(citiesAPI.middleware),
+        .concat(citiesAPI.middleware)
+        .concat(ipAPI.middleware),
   })
 }
 

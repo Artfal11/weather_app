@@ -5,15 +5,15 @@ interface ForecastQueryParameters {
   locationName: string
 }
 
-interface LastFewDaysQueryParameters {
-  locationName: string
-  days: number
-}
-
 interface DataRangeQueryParameters {
   locationName: string
   startDay: string
   endDay: string
+}
+
+interface DayQueryParameters {
+  locationName: string
+  dayDate?: string
 }
 
 export const weatherStateAPI = createApi({
@@ -37,24 +37,6 @@ export const weatherStateAPI = createApi({
           '&lang=ru',
       }),
     }),
-    fetchLastFewDays: build.query<
-      LocationWeatherState,
-      LastFewDaysQueryParameters
-    >({
-      query: ({ locationName, days }) => ({
-        url:
-          '/' +
-          locationName +
-          '/' +
-          'last' +
-          days +
-          'days' +
-          '?key=SNFAR9597GG5UGNWWRTFXVMR4' +
-          '&include=days' +
-          '&unitGroup=metric' +
-          '&lang=ru',
-      }),
-    }),
     fetchDataRange: build.query<LocationWeatherState, DataRangeQueryParameters>(
       {
         query: ({ locationName, startDay, endDay }) => ({
@@ -72,5 +54,18 @@ export const weatherStateAPI = createApi({
         }),
       }
     ),
+    fetchDay: build.query<LocationWeatherState, DayQueryParameters>({
+      query: ({ locationName, dayDate }) => ({
+        url:
+          '/' +
+          locationName +
+          '/' +
+          dayDate +
+          '?key=SNFAR9597GG5UGNWWRTFXVMR4' +
+          '&include=days,hours' +
+          '&unitGroup=metric' +
+          '&lang=ru',
+      }),
+    }),
   }),
 })

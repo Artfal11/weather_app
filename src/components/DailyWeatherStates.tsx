@@ -27,11 +27,28 @@ const DailyWeatherStates = () => {
             modules={[Navigation]}
             spaceBetween={30}
             slidesPerGroupSkip={0}
-            slidesPerGroup={3}
-            slidesPerView={7}
             navigation={{
               prevEl: '.prev-daily',
               nextEl: '.next-daily',
+            }}
+            breakpoints={{
+              320: {
+                slidesPerView: 2,
+              },
+              475: {
+                slidesPerView: 3,
+              },
+              768: {
+                slidesPerView: 4,
+              },
+              1024: {
+                slidesPerView: 5,
+                slidesPerGroup: 2,
+              },
+              1280: {
+                slidesPerView: 7,
+                slidesPerGroup: 3,
+              },
             }}
           >
             {LocationWeatherStates?.days.map((weatherState) => (
@@ -46,7 +63,7 @@ const DailyWeatherStates = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-          <div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] absolute prev-daily w-[36px] h-[36px] rounded-[50%] bg-[rgba(255,255,255,0.4)] cursor-pointer top-[50%] left-0 translate-y-[-50%]">
+          <div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] absolute prev-daily w-[36px] h-[36px] rounded-[50%] bg-[rgba(255,255,255,0.4)] cursor-pointer top-[50%] left-0 translate-y-[-50%] z-10">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -58,7 +75,7 @@ const DailyWeatherStates = () => {
               <path d="M10 12.796V3.204L4.519 8zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753" />
             </svg>
           </div>
-          <div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] absolute next-daily w-[36px] h-[36px] rounded-[50%] bg-[rgba(255,255,255,0.4)] cursor-pointer top-[50%] right-0 translate-y-[-50%]">
+          <div className="shadow-[0_3px_10px_rgb(0,0,0,0.2)] absolute next-daily w-[36px] h-[36px] rounded-[50%] bg-[rgba(255,255,255,0.4)] cursor-pointer top-[50%] right-0 translate-y-[-50%] z-10">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
